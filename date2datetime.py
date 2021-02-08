@@ -15,7 +15,7 @@ def date2datetime(path):
 
     ''' Training Set Airport Data '''
     for idx_column in [0,2,3]:
-        training_set_airport_data.iloc[:idx_column] = pd.to_datetime(
+        training_set_airport_data.iloc[:,idx_column] = pd.to_datetime(
                                 training_set_airport_data.iloc[:,idx_column])
 
     ''' Weather Data '''
