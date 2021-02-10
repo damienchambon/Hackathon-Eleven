@@ -10,7 +10,7 @@ def clean_weather_data(dataset_path):
     Returns a cleaned dataframe from a file containing
     the weather data
     file.
-    Input: path of the Excel file,
+    Input: path of the CSV file,
     Output: Pandas dataframes object.
     '''
 
