@@ -19,4 +19,10 @@ def clean_airport(dataset_path):
     # same as the take-off time
     df_airport = df_airport[~(df_airport['AOBT'] == df_airport['ATOT'])]
 
+    # changing the name of the columns so they are better formatted
+    df_airport.columns = [
+        'flight_datetime', 'aircraft_model', 'AOBT',
+        'ATOT', 'stand', 'runway'
+        ]
+
     return df_airport
