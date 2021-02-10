@@ -8,7 +8,7 @@ import datetime
 def clean_weather_data(dataset_path):
     '''
     Returns a cleaned dataframe from a file containing
-    the weather data, where the file is an Excel file
+    the weather data
     file.
     Input: path of the Excel file,
     Output: Pandas dataframes object.
