@@ -20,21 +20,24 @@ def join_datasets(df_airport, df_weather=None,
         # creating a new column for the hourly data
         # in the merged dataframe to join with the weather dataframe
         # we only keep the day and the hour
-        merged_df['Flight_Datetime_modified'] = merged_df.apply(
-            lambda x: x['Flight Datetime'][:-3], axis=1)
+        merged_df['flight_datetime_modified'] = merged_df.apply(
+            lambda x: x['flight_datetime'].replace(minute=0, second=0), axis=1)
 
         # creating a transformed hourly data column
         # to join with the weather dataframe
         # we only keep the day and the hour
         df_weather_no_dup = df_weather.drop_duplicates()
         df_weather_no_dup['time_hourly_modified'] = df_weather_no_dup.apply(
-            lambda x: x['time_hourly'][:-3], axis=1)
+            lambda x: x['time_hourly'].replace(minute=0, second=0), axis=1)
 
         # merging merged_df with df_weather
         merged_df = merged_df.merge(df_weather_no_dup,
-                                    left_on='Flight_Datetime_modified',
+                                    left_on='flight_datetime_modified',
                                     right_on='time_hourly_modified',
                                     how='left', suffixes=(None, '_copy'))
+
+        merged_df = merged_df.drop('flight_datetime_modified', axis=1)
+        merged_df = merged_df.drop('time_hourly_modified', axis=1)
 
     if df_geography is not None:
         # getting the coordinates of the runway
@@ -51,10 +54,10 @@ def join_datasets(df_airport, df_weather=None,
 
         # merging merged_df with df_geography
         merged_df = merged_df.merge(df_geography_runway_no_dup,
-                                    left_on='Runway', right_on='runway',
+                                    left_on='runway', right_on='runway',
                                     how='left', suffixes=(None, '_copy'))
         merged_df = merged_df.merge(df_geography_stand_no_dup,
-                                    left_on='Stand', right_on='stand',
+                                    left_on='stand', right_on='stand',
                                     how='left', suffixes=(None, '_copy'))
 
     if df_aircraft is not None:
@@ -90,17 +93,19 @@ def join_datasets(df_airport, df_weather=None,
         pairs_rename_aircraft_models['B737-900ER'] = '737-900ER'
 
         # translating the names in merged_df
-        merged_df['Aircraft_model_transformed'] = merged_df.apply(
-            lambda x: pairs_rename_aircraft_models[x['Aircraft Model']]
-            if x['Aircraft Model'] in pairs_rename_aircraft_models
+        merged_df['aircraft_model_transformed'] = merged_df.apply(
+            lambda x: pairs_rename_aircraft_models[x['aircraft_model']]
+            if x['aircraft_model'] in pairs_rename_aircraft_models
             else '', axis=1)
         # removing rows where the equivalent model was not specified
-        merged_df = merged_df[merged_df['Aircraft_model_transformed'] != '']
+        merged_df = merged_df[merged_df['aircraft_model_transformed'] != '']
 
         # merging merged_df with df_aircraft
         merged_df = merged_df.merge(df_aircraft,
-                                    left_on='Aircraft_model_transformed',
-                                    right_on='A320-100',
+                                    left_on='aircraft_model_transformed',
+                                    right_on='full_aircraft_model',
                                     how='left', suffixes=(None, '_copy'))
+
+        merged_df = merged_df.drop('aircraft_model_transformed', axis=1)
 
     return merged_df

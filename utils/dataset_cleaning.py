@@ -27,6 +27,11 @@ def clean_airport(dataset_path):
         'ATOT', 'stand', 'runway'
         ]
 
+    # changing the flight_datetime variable to a datetime format
+    df_airport.iloc[:, 0] = pd.to_datetime(
+        df_airport.iloc[:, 0], errors='coerce'
+        )
+
     return df_airport
 
 
@@ -47,7 +52,7 @@ def clean_geography(dataset_path):
     return df_geography
 
 
-def clean_aircraft_char(dataset_path):
+def clean_aircraft(dataset_path):
     '''
     Returns a cleaned dataframe from a file containing
     the aircraft characteristics, where the file is an Excel file
@@ -124,7 +129,7 @@ def clean_aircraft_char(dataset_path):
 
     # renaming the name of the columns
     subset_df_aircraft.columns = [
-        'manufacturer', 'aircraft_model', 'engine class', 'number_engines',
+        'manufacturer', 'full_aircraft_model', 'engine class', 'number_engines',
         'approach_speed', 'wingtip_config', 'wingspan_feet', 'length_feet',
         'tail_height_feet', 'wheelbase_feet', 'cockpit_to_main_gear_feet',
         'main_gear_width', 'max_takeoff_weight', 'max_ramp_taxi_weight',
@@ -134,7 +139,7 @@ def clean_aircraft_char(dataset_path):
     return subset_df_aircraft
 
 
-def clean_weather_data(dataset_path):
+def clean_weather(dataset_path):
     '''
     Returns a cleaned dataframe from a file containing
     the weather data
