@@ -3,7 +3,7 @@ import pandas as pd
 import shap
 
 
-def explainer_xgb(model,df_features,idx_prediction):
+def explainer_xgb(model, df_features, idx_prediction):
     '''
     Model: classifier.fit(x_train,y_train)
     df_features: pandas dataframe
@@ -20,7 +20,7 @@ def explainer_xgb(model,df_features,idx_prediction):
                             df_features.iloc[idx_prediction,:])
 
 
-def explainer_regression(model,df_features,nInstances,feature_name, maximum_display):
+def explainer_regression(model, df_features, nInstances, feature_name, maximum_display):
     ''' Explaining Coefficients '''
     print("Model coefficients:\n")
     for i in range(df_features.shape[1]):
@@ -49,7 +49,7 @@ def explainer_regression(model,df_features,nInstances,feature_name, maximum_disp
     shap.plots.waterfall(shap_values[sample_ind], max_display = maximum_display)
 
 
-def get_interaction_plot_xbg(model,df_features):
+def get_interaction_plot_xbg(model, df_features):
     ''' Creates a summary plot of the interations between features for
     a tree-based model.'''
     shap_values = shap.TreeExplainer(model).shap_values(df_features)
@@ -57,13 +57,13 @@ def get_interaction_plot_xbg(model,df_features):
     return shap.summary_plot(shap_interation_values,df_features)
 
 
-def get_summary_plot_xbg(model,df_features):
+def get_summary_plot_xbg(model, df_features):
     ''' Creates a summary plot: impact of features on output.'''
     shap_values = shap.TreeExplainer(model).shap_values(df_features)
     return shap.summary_plot(shap_values,df_features)
 
 
-def get_dependence_plot_xgb(model,df_features,feature_name:str,categorical = 0):
+def get_dependence_plot_xgb(model, df_features, feature_name:str):
     '''Creates a dependence plot for a feature given as input.'''
     shap_values = shap.TreeExplainer(model).shap_values(df_features)
     return shap.dependence_plot(feature_name,shap_values,df_features)
