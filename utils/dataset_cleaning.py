@@ -6,7 +6,7 @@ import datetime
 pd.options.mode.chained_assignment = None
 
 
-def clean_airport(dataset_path,mode):
+def clean_airport(dataset_path, mode):
     '''
     Returns a cleaned dataframe from a file containing
     the airport data
