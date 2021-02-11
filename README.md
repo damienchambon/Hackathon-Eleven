@@ -10,7 +10,6 @@ The project regards the prediction of the taxi time in a major airport.
 
 Following, a quick documentation on how to use and launch the code, and the main resources we provide for the project.
 
-We used this cool command: `var example = true`
 
 
 
