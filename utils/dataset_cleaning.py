@@ -6,7 +6,7 @@ import datetime
 pd.options.mode.chained_assignment = None
 
 
-def clean_airport(dataset_path):
+def clean_airport(dataset_path,mode):
     '''
     Returns a cleaned dataframe from a file containing
     the airport data
@@ -14,8 +14,10 @@ def clean_airport(dataset_path):
     Input: path of the CSV file,
     Output: Pandas dataframes object.
     '''
-
-    df_airport = pd.read_csv(dataset_path)
+    if mode == 'train':
+        df_airport = pd.read_csv(dataset_path)
+    else:
+        df_airport = pd.read_excel(dataset_path)
 
     # removing flights where the block-out time is the
     # same as the take-off time
@@ -139,7 +141,7 @@ def clean_aircraft(dataset_path):
     return subset_df_aircraft
 
 
-def clean_weather(dataset_path):
+def clean_weather(dataset_path,mode):
     '''
     Returns a cleaned dataframe from a file containing
     the weather data
@@ -147,8 +149,10 @@ def clean_weather(dataset_path):
     Input: path of the CSV file,
     Output: Pandas dataframes object.
     '''
-
-    df_weather = pd.read_csv(dataset_path)
+    if mode == 'train':
+        df_weather = pd.read_csv(dataset_path)
+    else:
+        df_weather = pd.read_excel(dataset_path)
 
     # dropping duplicates as there are several weather records per hour
     df_weather = df_weather.drop_duplicates()
