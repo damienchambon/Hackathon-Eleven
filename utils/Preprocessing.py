@@ -1,26 +1,31 @@
 import pandas as pd
 
 
-def preprocessing(merged_df, pairs):
+def preprocessing(merged_df, pairs, mode):
 
     # Merge with the distances between stands and runways
     merged_df = pd.merge(merged_df, pairs,  how='left',
                          left_on=['stand', 'runway'],
                          right_on=['stand', 'runway'])
 
-    # Adding target variable
-    merged_df.iloc[:, 2] = pd.to_datetime(
-        merged_df.iloc[:, 2], errors='coerce')
-    merged_df.iloc[:, 3] = pd.to_datetime(
-        merged_df.iloc[:, 3], errors='coerce')
-    variable = abs(merged_df.iloc[:, 3] - merged_df.iloc[:, 2])
-    merged_df['taxi_out'] = variable.astype('int64')/(6*10**10)
+    if mode = 'train':
+        # Adding target variable
+        merged_df.iloc[:, 2] = pd.to_datetime(
+            merged_df.iloc[:, 2], errors='coerce')
+        merged_df.iloc[:, 3] = pd.to_datetime(
+            merged_df.iloc[:, 3], errors='coerce')
+        variable = abs(merged_df.iloc[:, 3] - merged_df.iloc[:, 2])
+        merged_df['taxi_out'] = variable.astype('int64')/(6*10**10)
+        
+        # Remove outliers
+        merged_df = merged_df[merged_df['taxi_out'] < 500]
+    else:
+        merged_df.iloc[:, 2] = pd.to_datetime(
+            merged_df.iloc[:, 2], errors='coerce')
 
     # Drop null records
     merged_df = merged_df.dropna()
 
-    # Remove outliers
-    merged_df = merged_df[merged_df['taxi_out'] < 500]
 
     # Adding the N and Q variables
     #merged_df = merged_df.merge(N_Q_df[['Flight Datetime', 'ATOT', 'N', 'Q' ]], 
