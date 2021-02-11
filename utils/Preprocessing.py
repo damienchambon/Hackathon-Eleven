@@ -26,17 +26,17 @@ def preprocessing(merged_df, pairs):
     #merged_df = merged_df.merge(N_Q_df[['Flight Datetime', 'ATOT', 'N', 'Q' ]], 
       #                          left_on=['flight_datetime', 'ATOT'], right_on=['Flight Datetime', 'ATOT' ], 
      #                           suffixes=(False, False))
-    merged_df = add_current_load_airport_N_Q(merged_df)
+    merged_df = add_current_load_airport_N_Q.add_current_load_airport_N_Q(merged_df)
     
     # Adding an interaction variable between N and Q
     merged_df['interaction_N_Q'] = merged_df['load_N']*merged_df['load_Q']
 
     # Adding current load of the runway as a variable
-    merged_df = add_current_load_runway(merged_df)
+    merged_df = add_current_load_runway.add_current_load_runway(merged_df)
     
     # Adding the length of the shortest path between stand and runway
     # for each flight
-    merged_df = add_shortest_path_length(merged_df)
+    merged_df = add_shortest_path_length.add_shortest_path_length(merged_df)
 
     # Adding the delay variable between Block Out Time and Flight Date Time
     merged_df['delay'] = (-1)**(merged_df['AOBT'] <
@@ -130,8 +130,7 @@ def preprocessing(merged_df, pairs):
     scaler = StandardScaler()
     num_cols = ['temperature', 'dewPoint', 'humidity', 'windSpeed',
                 'windGust', 'windBearing', 'cloudCover', 'uvIndex',
-                'visibility', 'Lat_runway', 'Lng_runway', 'Lat_stand',
-                'Lng_stand', 'approach_speed', 'distance', 'load_N',
+                'visibility', 'approach_speed', 'distance', 'load_N',
                 'load_Q', 'interaction_N_Q', 'current_load_on_runway',
                 'shortest_path_length']
     X[num_cols] = scaler.fit_transform(X[num_cols])
