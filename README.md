@@ -66,6 +66,7 @@ The main repositories are:
 4. data exploration
     * Weather data exploration
     * General first exploration
+    * Airport location exploration
 
 5. models
     * In this folder you can save the model trained during the train function
