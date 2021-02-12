@@ -153,7 +153,7 @@ def clean_weather(dataset_path,mode):
         df_weather = pd.read_csv(dataset_path)
     else:
         df_weather = pd.read_excel(dataset_path)
-
+    print(df_weather)
     # dropping duplicates as there are several weather records per hour
     df_weather = df_weather.drop_duplicates()
 
