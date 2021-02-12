@@ -1,14 +1,25 @@
 import pandas as pd
 
 
-def preprocessing(merged_df, pairs, mode):
+def preprocessing(merged_df, pairs, mode, root_dir):
+    import importlib
 
+    add_current_load_runway = importlib.import_module(
+        "utils.add_current_load_runway"
+        )
+    add_current_load_airport_N_Q = importlib.import_module(
+        "utils.add_current_load_airport_N_Q"
+        )
+    add_shortest_path_length = importlib.import_module(
+        "utils.add_shortest_path_length"
+        )
+    
     # Merge with the distances between stands and runways
     merged_df = pd.merge(merged_df, pairs,  how='left',
                          left_on=['stand', 'runway'],
                          right_on=['stand', 'runway'])
 
-    if mode = 'train':
+    if mode == 'train':
         # Adding target variable
         merged_df.iloc[:, 2] = pd.to_datetime(
             merged_df.iloc[:, 2], errors='coerce')
@@ -41,7 +52,8 @@ def preprocessing(merged_df, pairs, mode):
     
     # Adding the length of the shortest path between stand and runway
     # for each flight
-    merged_df = add_shortest_path_length.add_shortest_path_length(merged_df)
+    merged_df = add_shortest_path_length.add_shortest_path_length(
+        merged_df, root_dir + '/resources/graph.xlsx')
 
     # Adding the delay variable between Block Out Time and Flight Date Time
     merged_df['delay'] = (-1)**(merged_df['AOBT'] <
@@ -72,8 +84,7 @@ def preprocessing(merged_df, pairs, mode):
     X['day_moment'] = val
 
     # Drop of the useless variables
-    X = X.drop(['Flight Datetime', 'Lat_runway', 'Lng_runway',
-                'Lat_stand', 'Lng_stand', 'flight_datetime',
+    X = X.drop(['Lat_runway', 'Lng_runway','Lat_stand', 'Lng_stand', 'flight_datetime',
                 'aircraft_model', 'AOBT', 'ATOT', 'stand', 'index',
                 'time_hourly', 'manufacturer', 'full_aircraft_model'], axis=1)
 
