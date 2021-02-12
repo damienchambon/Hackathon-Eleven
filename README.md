@@ -17,7 +17,9 @@ Following, a quick documentation on how to use and launch the code, and the main
 
 The main repositories are:
 
-1. Utils
+1. Main
+
+2. Utils
 
 - date2datetime.py: contains two functions that load the airport, weather and
   aicraft datasets as pandas dataframes and transforms the relevant columns into
@@ -37,5 +39,19 @@ The main repositories are:
   will produce a summary plot with the impact of features on model output;
   get_dependence_plot_tree() will produce a partial dependence plot based on
   a feature selected as input.
-2. Data Exploration
-3. Models
+  
+- add_current_load_airport_N_Q.py:
+- add_current_load_runway.py:
+- add_shortest_path_length.py
+- dataset_cleaning.py: cleans all the datasets (accepts different modes -> mode='train' or mode='test'
+- dataset_joining.py
+- Preprocessing.py: generates the preprocessing on the merged dataframe. The preprocessing includes the generation of the target   variable, the drop of several useless columns, scaling and OneHot Encoding.
+
+- train.py: training function that trains the selected model Light GBM on the training data.
+
+  
+3. Data Exploration
+- Weather data exploration
+- General first exploration
+
+4. Models
