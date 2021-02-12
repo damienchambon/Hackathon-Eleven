@@ -9,6 +9,8 @@ def train(X,y):
     3 and 5 minutes
     Output: returns the model
     '''
+    from sklearn.model_selection import train_test_split
+
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.33, random_state=42
         )

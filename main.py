@@ -4,8 +4,6 @@
 def main(root_dir, train_mode, test_mode):
 
     # importing packages used here
-    from sklearn.preprocessing import OneHotEncoder
-    from sklearn.preprocessing import StandardScaler
     from sklearn.model_selection import train_test_split
     import os
     import site

@@ -3,6 +3,8 @@ import pandas as pd
 
 def preprocessing(merged_df, pairs, mode, root_dir):
     import importlib
+    from sklearn.preprocessing import OneHotEncoder
+    from sklearn.preprocessing import StandardScaler
 
     add_current_load_runway = importlib.import_module(
         "utils.add_current_load_runway"
