@@ -1,15 +1,15 @@
 # Hackathon-Eleven
- Repository for the Hackathon organized by Eleven strategy (Feb 2021)
+
+ Repository for the project that took place during the Hackathon organized by Eleven Strategy (8-12 February 2021). 5 persons have collaborated on this project.
 
 
+## Taxi-out Time Prediction
 
+The project regards the prediction of the taxi-out time of aircrafts in a major airport. The taxi-out time corresponds to the time it takes for a plane to leaves a stand and actually take off. A stand is the area where an aircraft is docked and loads the passengers.
 
-## Taxi Time Prediction
+Following, you can find a quick documentation on how to use and launch the code, and the main resources we provide for the project.
 
-The project regards the prediction of the taxi time in a major airport.
-
-Following, a quick documentation on how to use and launch the code, and the main resources we provide for the project.
-
+To preserve privacy and confidentiality, the data is not available. This repository has been made public to showcase the work that has been done.
 
 
 
@@ -56,10 +56,8 @@ The main repositories are:
     * dataset_cleaning.py: cleans all the datasets (accepts different modes -> mode='train' or mode='test')
     * dataset_joining.py: joins the four main dataframes.
     * Preprocessing.py: generates the preprocessing on the merged dataframe. The preprocessing includes the generation of the target   variable, the drop of several useless columns, scaling and OneHot Encoding.
-
     * train.py: training function that trains the selected model Light GBM on the training data.
     
-
 3. resources
     * In this folder you would need to add the data with the name specified in the main.py
   
